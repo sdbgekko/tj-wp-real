@@ -177,6 +177,11 @@
             "postTypes": ["page"]
         },
         {
+            "name": "front-page",
+            "title": "Front Page",
+            "postTypes": ["page"]
+        },
+        {
             "name": "full-width",
             "title": "Full Width",
             "postTypes": ["page", "post"]

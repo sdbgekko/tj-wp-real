@@ -1,29 +1,42 @@
-<!-- wp:group {"tagName":"header","className":"site-header","layout":{"type":"constrained"}} -->
+<!-- wp:group {"tagName":"header","className":"site-header","layout":{"type":"default"}} -->
 <header class="wp-block-group site-header">
-    <!-- wp:group {"className":"site-header__inner tj-container","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
-    <div class="wp-block-group site-header__inner tj-container">
 
-        <!-- wp:group {"className":"site-logo","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
-        <div class="wp-block-group site-logo">
-            <!-- wp:site-logo {"width":48,"shouldSyncIcon":false} /-->
-            <!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap","orientation":"vertical"}} -->
-            <div class="wp-block-group">
-                <!-- wp:site-title {"className":"site-logo__text","style":{"typography":{"fontFamily":"var(--wp--preset--font-family--display)","fontSize":"2rem"},"color":{"text":"#ffffff"}}} /-->
-                <!-- wp:paragraph {"className":"site-logo__sub","style":{"typography":{"fontSize":"0.6rem","letterSpacing":"3px","textTransform":"uppercase"},"color":{"text":"#d6ad8a"}}} -->
-                <p class="wp-block-paragraph site-logo__sub">Indian Rocks Beach, FL · Since 1989</p>
-                <!-- /wp:paragraph -->
-            </div>
-            <!-- /wp:group -->
-        </div>
-        <!-- /wp:group -->
-
-        <!-- wp:navigation {"className":"site-nav","overlayBackgroundColor":"dark-brown","overlayTextColor":"white","layout":{"type":"flex","flexWrap":"nowrap"},"style":{"typography":{"fontFamily":"var(--wp--preset--font-family--body)","fontSize":"0.8rem","fontWeight":"700","textTransform":"uppercase","letterSpacing":"1.5px"}}} /-->
-
-        <!-- wp:paragraph {"className":"header-phone","style":{"color":{"text":"#d6ad8a"},"typography":{"fontSize":"0.85rem","fontWeight":"700"}}} -->
-        <p class="wp-block-paragraph header-phone"><a href="tel:+17275961515">727-596-1515</a></p>
+    <!-- TOP CALL STRIP — matches TJ's "Call 727-596-1515" band -->
+    <!-- wp:group {"className":"site-header__call-strip","style":{"color":{"background":"#f5ede0"},"spacing":{"padding":{"top":"8px","bottom":"8px"}}},"layout":{"type":"constrained"}} -->
+    <div class="wp-block-group site-header__call-strip" style="background-color:#f5ede0;padding:8px 0;text-align:center;">
+        <!-- wp:paragraph {"textAlign":"center","style":{"typography":{"fontFamily":"'Times New Roman', Times, serif","fontSize":"0.95rem","fontWeight":"700","letterSpacing":"2px"},"color":{"text":"#3a2011"}}} -->
+        <p class="has-text-align-center site-header__phone-text" style="font-family:'Times New Roman', Times, serif;font-size:0.95rem;font-weight:700;letter-spacing:2px;color:#3a2011;margin:0;"><a href="tel:+17275961515" style="color:#3a2011;text-decoration:none;">CALL 727-596-1515</a></p>
         <!-- /wp:paragraph -->
-
     </div>
     <!-- /wp:group -->
+
+    <!-- MAIN HEADER ROW — menu button left / logo center / search right -->
+    <!-- wp:group {"className":"site-header__main-row","style":{"color":{"background":"#3a2011"},"spacing":{"padding":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
+    <div class="wp-block-group site-header__main-row" style="background-color:#3a2011;padding:0;">
+        <!-- wp:group {"className":"site-header__inner tj-container","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
+        <div class="wp-block-group site-header__inner tj-container" style="display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;padding:0 24px;min-height:80px;">
+
+            <!-- LEFT: Hamburger nav -->
+            <!-- wp:navigation {"className":"site-nav","overlayBackgroundColor":"dark-brown","overlayTextColor":"white","layout":{"type":"flex","flexWrap":"nowrap"},"style":{"typography":{"fontFamily":"'Lato', sans-serif","fontSize":"0.8rem","fontWeight":"700","textTransform":"uppercase","letterSpacing":"1.5px"}}} /-->
+
+            <!-- CENTER: Logo -->
+            <!-- wp:group {"className":"site-logo-center","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center","justifyContent":"center"}} -->
+            <div class="wp-block-group site-logo-center" style="flex:1;display:flex;justify-content:center;align-items:center;">
+                <!-- wp:image {"align":"center","width":220,"linkDestination":"custom","className":"tj-header-logo"} -->
+                <figure class="wp-block-image aligncenter tj-header-logo" style="width:220px;"><a href="/"><img src="https://tjsitaliancafe.com/wp-content/uploads/2021/07/TJs-Logo_02_Transparent.png" alt="TJ's Italian Cafe — Indian Rocks Beach" style="max-width:220px;width:100%;height:auto;"/></a></figure>
+                <!-- /wp:image -->
+            </div>
+            <!-- /wp:group -->
+
+            <!-- RIGHT: Search link -->
+            <!-- wp:paragraph {"className":"site-header__search","style":{"color":{"text":"#d6ad8a"},"typography":{"fontSize":"0.85rem"}}} -->
+            <p class="wp-block-paragraph site-header__search" style="color:#d6ad8a;font-size:0.85rem;min-width:60px;text-align:right;"><a href="/?s=" style="color:#d6ad8a;text-decoration:none;font-size:1.2rem;" aria-label="Search">&#9906;</a></p>
+            <!-- /wp:paragraph -->
+
+        </div>
+        <!-- /wp:group -->
+    </div>
+    <!-- /wp:group -->
+
 </header>
 <!-- /wp:group -->
