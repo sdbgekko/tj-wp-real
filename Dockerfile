@@ -1,14 +1,14 @@
-# Cache-bust: 2026-05-31-v4
 FROM wordpress:6.7-php8.3-apache
+
+# Cache-bust argument — increment to force Railway to rebuild all layers
+ARG CACHE_BUST=2026-05-31-v5
 
 # ---------------------------------------------------------------
 # FIX: Apache MPM crash — "More than one MPM loaded"
-#
-# Confirmed fix: the base image only has mpm_prefork in mods-enabled.
-# The Railway crash was due to layer caching of a pre-fix image.
-# This v4 comment forces a fresh layer to bust Railway's cache.
+# Confirmed working locally. ARG above busts Railway's layer cache.
 # ---------------------------------------------------------------
-RUN find /etc/apache2/mods-enabled -name 'mpm_event*' -delete \
+RUN echo "Build: $CACHE_BUST" \
+ && find /etc/apache2/mods-enabled -name 'mpm_event*' -delete \
  && find /etc/apache2/mods-enabled -name 'mpm_worker*' -delete \
  && echo "ServerName localhost" >> /etc/apache2/apache2.conf \
  && apache2ctl configtest 2>&1
