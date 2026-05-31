@@ -84,6 +84,20 @@ if ($front_page_id > 0) {
 </div>
 <!-- /wp:cover -->
 
+<!-- wp:group {"align":"full","style":{"color":{"background":"#ffffff"},"spacing":{"padding":{"top":"60px","bottom":"60px"}}},"layout":{"type":"constrained","contentSize":"700px"}} -->
+<div class="wp-block-group alignfull tj-hours-section" style="background-color:#ffffff;padding:60px 24px;text-align:center;">
+<h2 style="font-family:'Times New Roman',Times,serif;font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#3a2011;margin-bottom:32px;text-align:center;">HOURS OF OPERATION</h2>
+<p style="font-family:'Times New Roman',Times,serif;font-size:1rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#3a2011;margin-bottom:4px;margin-top:0;text-align:center;">BRUNCH</p>
+<p style="font-size:0.95rem;color:#444;margin-bottom:24px;margin-top:0;text-align:center;">Saturday &#8211; Sunday 10:00am &#8211; 2:00pm</p>
+<p style="font-family:'Times New Roman',Times,serif;font-size:1rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#3a2011;margin-bottom:4px;margin-top:0;text-align:center;">REGULAR MENU</p>
+<p style="font-size:0.95rem;color:#444;margin-bottom:4px;margin-top:0;text-align:center;">Monday &#8211; Thursday 3:00pm -10:00pm</p>
+<p style="font-size:0.95rem;color:#444;margin-bottom:4px;margin-top:0;text-align:center;">Friday &#8211; Noon &#8211; 10:00pm</p>
+<p style="font-size:0.95rem;color:#444;margin-bottom:24px;margin-top:0;text-align:center;">Saturday &#8211; Sunday 2:00pm &#8211; 10:00pm</p>
+<p style="font-size:0.95rem;font-style:italic;color:#666;margin-bottom:8px;margin-top:0;text-align:center;">Takeout Orders Available</p>
+<p style="font-size:0.9rem;font-weight:700;color:#3a2011;margin-top:0;text-align:center;">CLOSED Thanksgiving, Christmas Eve and Christmas</p>
+</div>
+<!-- /wp:group -->
+
 <!-- wp:group {"align":"full","style":{"color":{"background":"#fdf8f3"},"spacing":{"padding":{"top":"80px","bottom":"80px"}}},"layout":{"type":"constrained","contentSize":"960px"}} -->
 <div class="wp-block-group alignfull" style="background-color:#fdf8f3;padding:80px 24px;">
 <h2 style="font-family:'Times New Roman',Times,serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:400;letter-spacing:2px;color:#3a2011;margin-bottom:40px;text-align:center;">The essence of TJ's Italian Café as the ultimate dining destination on Indian Rocks Beach — Since 1989</h2>
@@ -173,6 +187,20 @@ $home_content = '<!-- wp:cover {"url":"https://tjsitaliancafe.com/wp-content/upl
 </div>
 </div>
 <!-- /wp:cover -->
+
+<!-- wp:group {"align":"full","style":{"color":{"background":"#ffffff"},"spacing":{"padding":{"top":"60px","bottom":"60px"}}},"layout":{"type":"constrained","contentSize":"700px"}} -->
+<div class="wp-block-group alignfull tj-hours-section" style="background-color:#ffffff;padding:60px 24px;text-align:center;">
+<h2 style="font-family:\'Times New Roman\',Times,serif;font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#3a2011;margin-bottom:32px;text-align:center;">HOURS OF OPERATION</h2>
+<p style="font-family:\'Times New Roman\',Times,serif;font-size:1rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#3a2011;margin-bottom:4px;margin-top:0;text-align:center;">BRUNCH</p>
+<p style="font-size:0.95rem;color:#444;margin-bottom:24px;margin-top:0;text-align:center;">Saturday &#8211; Sunday 10:00am &#8211; 2:00pm</p>
+<p style="font-family:\'Times New Roman\',Times,serif;font-size:1rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#3a2011;margin-bottom:4px;margin-top:0;text-align:center;">REGULAR MENU</p>
+<p style="font-size:0.95rem;color:#444;margin-bottom:4px;margin-top:0;text-align:center;">Monday &#8211; Thursday 3:00pm -10:00pm</p>
+<p style="font-size:0.95rem;color:#444;margin-bottom:4px;margin-top:0;text-align:center;">Friday &#8211; Noon &#8211; 10:00pm</p>
+<p style="font-size:0.95rem;color:#444;margin-bottom:24px;margin-top:0;text-align:center;">Saturday &#8211; Sunday 2:00pm &#8211; 10:00pm</p>
+<p style="font-size:0.95rem;font-style:italic;color:#666;margin-bottom:8px;margin-top:0;text-align:center;">Takeout Orders Available</p>
+<p style="font-size:0.9rem;font-weight:700;color:#3a2011;margin-top:0;text-align:center;">CLOSED Thanksgiving, Christmas Eve and Christmas</p>
+</div>
+<!-- /wp:group -->
 
 <!-- wp:group {"align":"full","style":{"color":{"background":"#fdf8f3"},"spacing":{"padding":{"top":"80px","bottom":"80px"}}},"layout":{"type":"constrained","contentSize":"960px"}} -->
 <div class="wp-block-group alignfull" style="background-color:#fdf8f3;padding:80px 24px;">
