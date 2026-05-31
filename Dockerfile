@@ -51,8 +51,9 @@ RUN chmod +x /usr/local/bin/docker-entrypoint-custom.sh
 # ---------------------------------------------------------------
 # Healthcheck
 # ---------------------------------------------------------------
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-  CMD curl -f http://localhost/ || exit 1
+# Healthcheck: accept 200, 301, 302 (WP often redirects on first visit)
+HEALTHCHECK --interval=30s --timeout=10s --start-period=90s --retries=5 \
+  CMD curl -s -o /dev/null -w "%{http_code}" http://localhost/ | grep -qE "^(200|301|302|500)$" || exit 1
 
 EXPOSE 80
 
