@@ -647,9 +647,10 @@ foreach ($pages as $page_data) {
         log_msg("Set page ID {$page_id} as front page.");
 
         // DIRECT DB: Force home page content + clear template override
-        // Note: $wpdb is a WP global accessible at top level
-        $tpl_rows = $wpdb->get_results("SELECT * FROM {$wpdb->postmeta} WHERE post_id = {$page_id} AND meta_key = '_wp_page_template'");
-        log_msg("Template meta rows found: " . count($tpl_rows));
+        log_msg("DEBUG: Entering direct DB fix for home page ID {$page_id}.");
+        $tbl = $wpdb->postmeta;
+        $tpl_rows = $wpdb->get_results("SELECT meta_id, meta_value FROM `{$tbl}` WHERE post_id = {$page_id} AND meta_key = '_wp_page_template'");
+        log_msg("Template meta rows found: " . (is_array($tpl_rows) ? count($tpl_rows) : 'QUERY FAILED: ' . $wpdb->last_error));
         // Delete ALL _wp_page_template meta for this page
         $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE post_id = {$page_id} AND meta_key = '_wp_page_template'");
         $wpdb->query("INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value) VALUES ({$page_id}, '_wp_page_template', 'default')");
