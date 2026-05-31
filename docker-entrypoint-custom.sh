@@ -4,7 +4,14 @@ set -e
 echo "[TJ-ENTRYPOINT] TJ's Italian Cafe WordPress starting..."
 
 # ---------------------------------------------------------------
-# FIX: Apache MPM crash on Railway
+# FIX 1: Stale Apache PID file (causes crash on container restart)
+# ---------------------------------------------------------------
+rm -f /run/apache2/apache2.pid /var/run/apache2/apache2.pid 2>/dev/null || true
+mkdir -p /run/apache2 /var/run/apache2
+echo "[TJ-APACHE] Cleared stale PID files"
+
+# ---------------------------------------------------------------
+# FIX 2: Apache MPM — ensure only prefork is loaded
 # ---------------------------------------------------------------
 echo "[TJ-MPM] Enforcing mpm_prefork only..."
 find /etc/apache2/mods-enabled -name 'mpm_event*' -delete 2>/dev/null || true
