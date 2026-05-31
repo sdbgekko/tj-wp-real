@@ -48,7 +48,8 @@ apache2ctl configtest 2>&1 || echo "[TJ-MPM] Config test result above"
     # Install WP if not installed
     if ! wp core is-installed --allow-root 2>/dev/null; then
         echo "[TJ-SETUP] Installing WordPress core..."
-        WP_URL="${WORDPRESS_URL:-http://localhost}"
+        # Use SITE_URL (not WORDPRESS_URL -- that gets picked up by wp-config-docker.php as a constant)
+        WP_URL="${SITE_URL:-http://localhost}"
         wp core install \
             --allow-root \
             --url="$WP_URL" \
@@ -61,9 +62,9 @@ apache2ctl configtest 2>&1 || echo "[TJ-MPM] Config test result above"
     else
         echo "[TJ-SETUP] WordPress already installed."
         # Update URL if needed
-        if [ -n "$WORDPRESS_URL" ]; then
-            wp option update siteurl "$WORDPRESS_URL" --allow-root 2>/dev/null || true
-            wp option update home "$WORDPRESS_URL" --allow-root 2>/dev/null || true
+        if [ -n "$SITE_URL" ]; then
+            wp option update siteurl "$SITE_URL" --allow-root 2>/dev/null || true
+            wp option update home "$SITE_URL" --allow-root 2>/dev/null || true
         fi
     fi
 
