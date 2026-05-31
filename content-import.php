@@ -524,14 +524,44 @@ foreach ($pages as $page_data) {
     }
 
     if ($existing) {
-        $post_args['ID'] = $existing->ID;
-        $result = wp_update_post($post_args, true);
-        if (is_wp_error($result)) {
-            log_err("Failed to update page '{$title}': " . $result->get_error_message());
-        } else {
-            log_msg("Updated page: {$title} (ID: {$result})");
-        }
         $page_id = $existing->ID;
+        if ($slug === '') {
+            // Home page: wp_update_post rejects update if the page has a stale non-existent template in postmeta.
+            // BYPASS: clear the template postmeta via $wpdb FIRST, then use $wpdb directly to update content.
+            global $wpdb;
+            // Clear stale _wp_page_template (force to 'default')
+            $wpdb->delete($wpdb->postmeta, ['post_id' => $page_id, 'meta_key' => '_wp_page_template'], ['%d', '%s']);
+            $wpdb->insert($wpdb->postmeta, ['post_id' => $page_id, 'meta_key' => '_wp_page_template', 'meta_value' => 'default'], ['%d', '%s', '%s']);
+            // Update post content and title directly via $wpdb
+            $updated = $wpdb->update(
+                $wpdb->posts,
+                [
+                    'post_title'   => $title,
+                    'post_content' => $page_data['content'],
+                    'post_status'  => 'publish',
+                    'post_modified' => current_time('mysql'),
+                    'post_modified_gmt' => current_time('mysql', true),
+                ],
+                ['ID' => $page_id],
+                ['%s', '%s', '%s', '%s', '%s'],
+                ['%d']
+            );
+            if ($updated !== false) {
+                wp_cache_delete($page_id, 'posts');
+                clean_post_cache($page_id);
+                log_msg("Updated home page via direct DB (ID: $page_id). Template cleared to 'default'.");
+            } else {
+                log_err("Direct DB update failed for home page ID $page_id: " . $wpdb->last_error);
+            }
+        } else {
+            $post_args['ID'] = $page_id;
+            $result = wp_update_post($post_args, true);
+            if (is_wp_error($result)) {
+                log_err("Failed to update page '{$title}': " . $result->get_error_message());
+            } else {
+                log_msg("Updated page: {$title} (ID: {$result})");
+            }
+        }
     } else {
         $result = wp_insert_post($post_args, true);
         if (is_wp_error($result)) {
