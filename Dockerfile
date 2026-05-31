@@ -46,17 +46,17 @@ COPY ./content-import-cli.php /opt/tj-content-import.php
 # Copy custom entrypoint (extends wordpress official entrypoint)
 # ---------------------------------------------------------------
 COPY ./docker-entrypoint-custom.sh /usr/local/bin/docker-entrypoint-custom.sh
-RUN chmod +x /usr/local/bin/docker-entrypoint-custom.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint-custom.sh \
+ && ls -la /usr/local/bin/docker-entrypoint-custom.sh
 
 # ---------------------------------------------------------------
-# Healthcheck
+# Healthcheck: accept 200, 301, 302, 500 (WP redirects on first visit)
+# Generous start-period for Railway's startup variability
 # ---------------------------------------------------------------
-# Healthcheck: accept 200, 301, 302 (WP often redirects on first visit)
-HEALTHCHECK --interval=30s --timeout=10s --start-period=90s --retries=5 \
+HEALTHCHECK --interval=30s --timeout=15s --start-period=120s --retries=5 \
   CMD curl -s -o /dev/null -w "%{http_code}" http://localhost/ | grep -qE "^(200|301|302|500)$" || exit 1
 
 EXPOSE 80
 
-# Override entrypoint to run our custom setup after WP boots
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint-custom.sh"]
 CMD ["apache2-foreground"]
