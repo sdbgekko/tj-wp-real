@@ -1,13 +1,22 @@
 FROM wordpress:6.7-php8.3-apache
 
 # ---------------------------------------------------------------
-# FIX: Apache MPM crash — disable event/worker, force prefork
-# This was the root cause of all 3 previous Railway WP failures.
+# FIX: Apache MPM crash — "More than one MPM loaded"
+# The wordpress:apache image loads mpm_prefork by default BUT
+# also has mpm_event enabled in mods-enabled/ via symlinks.
+# Solution: directly remove ALL mpm module symlinks then re-add
+# ONLY prefork. a2dismod/a2enmod is not reliable here.
 # ---------------------------------------------------------------
-RUN a2dismod mpm_event 2>/dev/null || true \
- && a2dismod mpm_worker 2>/dev/null || true \
- && a2enmod mpm_prefork \
- && echo "ServerName localhost" >> /etc/apache2/apache2.conf
+RUN rm -f /etc/apache2/mods-enabled/mpm_event.load \
+          /etc/apache2/mods-enabled/mpm_event.conf \
+          /etc/apache2/mods-enabled/mpm_worker.load \
+          /etc/apache2/mods-enabled/mpm_worker.conf \
+          /etc/apache2/mods-enabled/mpm_prefork.load \
+          /etc/apache2/mods-enabled/mpm_prefork.conf \
+ && ln -sf /etc/apache2/mods-available/mpm_prefork.load /etc/apache2/mods-enabled/mpm_prefork.load \
+ && ln -sf /etc/apache2/mods-available/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf \
+ && echo "ServerName localhost" >> /etc/apache2/apache2.conf \
+ && apache2ctl configtest 2>&1 || true
 
 # ---------------------------------------------------------------
 # PHP tuning for WordPress
