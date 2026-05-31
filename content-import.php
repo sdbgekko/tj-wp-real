@@ -58,6 +58,32 @@ if ($tj_theme->exists()) {
 }
 
 // ---------------------------------------------------------------
+// 1b. Clear FSE template overrides in wp_templates custom post type
+// WordPress FSE stores template overrides as custom posts with post_type='wp_template'
+// These override the theme's template files. We must clear them for front-page.html to be used.
+// ---------------------------------------------------------------
+$template_overrides = get_posts([
+    'post_type'      => 'wp_template',
+    'post_status'    => 'any',
+    'posts_per_page' => -1,
+    'post_name__in'  => ['front-page', 'home', 'page', 'index', 'header', 'footer'],
+]);
+foreach ($template_overrides as $tpl) {
+    wp_delete_post($tpl->ID, true); // force delete (bypass trash)
+    log_msg("Deleted FSE template override: {$tpl->post_name} (ID: {$tpl->ID})");
+}
+
+$template_part_overrides = get_posts([
+    'post_type'      => 'wp_template_part',
+    'post_status'    => 'any',
+    'posts_per_page' => -1,
+]);
+foreach ($template_part_overrides as $tpl) {
+    wp_delete_post($tpl->ID, true);
+    log_msg("Deleted FSE template part override: {$tpl->post_name} (ID: {$tpl->ID})");
+}
+
+// ---------------------------------------------------------------
 // 2. Site Settings
 // ---------------------------------------------------------------
 update_option('blogname', "TJ's Italian Cafe");
