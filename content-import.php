@@ -502,10 +502,31 @@ foreach ($pages as $page_data) {
     if ($slug === '') {
         update_option('page_on_front', $page_id);
         update_option('show_on_front', 'page');
-        // CRITICAL: Clear any stored page_template override so FSE uses front-page.html via template hierarchy
-        delete_post_meta($page_id, '_wp_page_template');
-        update_post_meta($page_id, '_wp_page_template', 'default');
-        log_msg("Set page ID {$page_id} as front page, cleared page_template override.");
+        // CRITICAL: Use $wpdb to bypass WP template validation and directly clear the page_template postmeta
+        // WP FSE uses front-page.html via template hierarchy when _wp_page_template is 'default'
+        global $wpdb;
+        $existing_tpl = $wpdb->get_var($wpdb->prepare(
+            "SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_key = '_wp_page_template'",
+            $page_id
+        ));
+        if ($existing_tpl) {
+            $wpdb->update(
+                $wpdb->postmeta,
+                ['meta_value' => 'default'],
+                ['post_id' => $page_id, 'meta_key' => '_wp_page_template'],
+                ['%s'],
+                ['%d', '%s']
+            );
+            log_msg("Cleared page_template override from '{$existing_tpl}' to 'default' for page ID {$page_id}.");
+        } else {
+            $wpdb->insert(
+                $wpdb->postmeta,
+                ['post_id' => $page_id, 'meta_key' => '_wp_page_template', 'meta_value' => 'default'],
+                ['%d', '%s', '%s']
+            );
+            log_msg("Set page_template to 'default' for page ID {$page_id}.");
+        }
+        log_msg("Set page ID {$page_id} as front page. FSE will use front-page.html via template hierarchy.");
     }
 }
 
