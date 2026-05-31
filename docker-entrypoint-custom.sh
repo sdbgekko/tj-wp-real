@@ -4,6 +4,28 @@ set -e
 echo "[TJ-ENTRYPOINT] TJ's Italian Cafe WordPress starting..."
 
 # ---------------------------------------------------------------
+# FIX: Apache MPM crash on Railway
+# Railway's runtime environment somehow causes mpm_event to be
+# loaded alongside mpm_prefork. Fix this in the entrypoint
+# (after any volume mounts but before Apache starts).
+# ---------------------------------------------------------------
+echo "[TJ-MPM] Enforcing mpm_prefork only..."
+find /etc/apache2/mods-enabled -name 'mpm_event*' -delete 2>/dev/null || true
+find /etc/apache2/mods-enabled -name 'mpm_worker*' -delete 2>/dev/null || true
+
+# Ensure prefork conf/load exist
+if [ ! -f /etc/apache2/mods-enabled/mpm_prefork.load ] && [ ! -L /etc/apache2/mods-enabled/mpm_prefork.load ]; then
+    ln -sf /etc/apache2/mods-available/mpm_prefork.load /etc/apache2/mods-enabled/mpm_prefork.load
+fi
+if [ ! -f /etc/apache2/mods-enabled/mpm_prefork.conf ] && [ ! -L /etc/apache2/mods-enabled/mpm_prefork.conf ]; then
+    ln -sf /etc/apache2/mods-available/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf
+fi
+
+echo "[TJ-MPM] mods-enabled MPM:"
+ls /etc/apache2/mods-enabled/ | grep mpm || echo "none found"
+apache2ctl configtest 2>&1 || echo "[TJ-MPM] Config test result above"
+
+# ---------------------------------------------------------------
 # Run background setup after WP is fully up
 # ---------------------------------------------------------------
 (
