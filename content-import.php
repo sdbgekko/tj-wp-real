@@ -446,8 +446,12 @@ foreach ($pages as $page_data) {
         'post_status'  => 'publish',
         'post_type'    => 'page',
         'post_name'    => $slug ?: 'home',
-        'page_template' => $page_data['template'] ? ($page_data['template'] . '.html') : '',
     ];
+    // Only set page_template if explicitly specified (not empty) to avoid "Invalid page template" errors
+    // For FSE themes: front-page.html is used via template hierarchy, no page_template needed
+    if (!empty($page_data['template'])) {
+        $post_args['page_template'] = $page_data['template'] . '.html';
+    }
 
     if ($existing) {
         $post_args['ID'] = $existing->ID;

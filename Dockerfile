@@ -1,7 +1,7 @@
 FROM wordpress:6.7-php8.3-apache
 
 # Cache-bust argument — increment to force Railway to rebuild all layers
-ARG CACHE_BUST=2026-05-31-v13
+ARG CACHE_BUST=2026-05-31-v14
 
 # ---------------------------------------------------------------
 # FIX: Apache MPM crash — "More than one MPM loaded"
