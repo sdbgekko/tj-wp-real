@@ -284,7 +284,7 @@ $pages = [
     [
         'slug'     => 'home',
         'title'    => 'Home',
-        'template' => 'front-page',
+        'template' => '', // empty — front-page.html is picked up via WP template hierarchy, not as page_template
         'content'  => '<!-- wp:paragraph --><p>Welcome to TJ\'s Italian Cafe — Indian Rocks Beach, FL. Est. 1989.</p><!-- /wp:paragraph -->',
     ],
     ['slug' => 'about-us',       'title' => "About TJ's Italian Cafe",     'template' => '', 'content' => $about_content],

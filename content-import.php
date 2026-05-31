@@ -76,8 +76,8 @@ $pages = [
     [
         'slug'    => '',   // home
         'title'   => 'Home',
-        'template' => 'home',
-        'content' => '', // home uses the block template
+        'template' => '', // MUST be empty — front-page.html is used via WP FSE template hierarchy, NOT as a page_template
+        'content' => '', // home page content comes from front-page.html block template
     ],
     [
         'slug'    => 'about-us',
@@ -472,7 +472,10 @@ foreach ($pages as $page_data) {
     if ($slug === '') {
         update_option('page_on_front', $page_id);
         update_option('show_on_front', 'page');
-        log_msg("Set page ID {$page_id} as front page.");
+        // CRITICAL: Clear any stored page_template override so FSE uses front-page.html via template hierarchy
+        delete_post_meta($page_id, '_wp_page_template');
+        update_post_meta($page_id, '_wp_page_template', 'default');
+        log_msg("Set page ID {$page_id} as front page, cleared page_template override.");
     }
 }
 
