@@ -95,12 +95,59 @@ log_msg('Site settings updated.');
 // ---------------------------------------------------------------
 // 3. Pages Definition
 // ---------------------------------------------------------------
+$home_content = '<!-- wp:cover {"url":"https://tjsitaliancafe.com/wp-content/uploads/2018/09/alcoholic-beverage-beverage-blur-1123260.jpg","dimRatio":45,"overlayColor":"dark-brown","minHeight":100,"minHeightUnit":"vh","align":"full","className":"tj-hero"} -->
+<div class="wp-block-cover alignfull tj-hero" style="min-height:100vh;">
+<span aria-hidden="true" class="wp-block-cover__background has-dark-brown-background-color has-background-dim" style="background-color:#1a0d06;opacity:0.45"></span>
+<img class="wp-block-cover__image-background" alt="TJ\'s Italian Cafe wine and dining" src="https://tjsitaliancafe.com/wp-content/uploads/2018/09/alcoholic-beverage-beverage-blur-1123260.jpg" data-object-fit="cover"/>
+<div class="wp-block-cover__inner-container">
+<p class="tj-hero__located" style="font-family:\'Times New Roman\',Times,serif;font-size:clamp(1.8rem,4vw,4.5rem);font-weight:100;text-transform:uppercase;letter-spacing:4px;color:#ffffff;margin:0;line-height:1.1;text-align:center;text-shadow:0 2px 8px rgba(0,0,0,0.5);">LOCATED IN BEAUTIFUL</p>
+<p class="tj-hero__script" style="font-family:\'Yesteryear\',cursive;font-size:clamp(2.5rem,6vw,5rem);font-weight:400;color:#ffffff;margin:0;line-height:1.4;text-align:center;text-shadow:0 2px 8px rgba(0,0,0,0.5);">Indian Rocks Beach, Florida</p>
+</div>
+</div>
+<!-- /wp:cover -->
+
+<!-- wp:group {"align":"full","style":{"color":{"background":"#fdf8f3"},"spacing":{"padding":{"top":"80px","bottom":"80px"}}},"layout":{"type":"constrained","contentSize":"960px"}} -->
+<div class="wp-block-group alignfull" style="background-color:#fdf8f3;padding:80px 24px;">
+<h2 style="font-family:\'Times New Roman\',Times,serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:400;letter-spacing:2px;color:#3a2011;margin-bottom:40px;text-align:center;">The essence of TJ\'s Italian Café as the ultimate dining destination on Indian Rocks Beach — Since 1989</h2>
+<p style="font-size:1rem;line-height:1.8;color:#444;margin-bottom:20px;">The sun dips below the horizon, painting the Gulf of America in fiery hues of orange and pink, but on the barrier island of Indian Rocks Beach, Florida, the real heat is just igniting. Since 1989, TJ\'s Italian Café has reigned supreme as <em>the</em> who\'s-who spot, a culinary crown jewel where locals strut and visitors clamor to be seen.</p>
+<p style="font-size:1rem;line-height:1.8;color:#444;margin-bottom:20px;">At the helm is Executive Chef Thomas J. Smith, a maestro with a spatula, commanding a brigade of nearly a dozen chefs. Every dish is crafted from scratch — from hand-rolled meatballs to brick-oven pizzas, fresh seafood risotto and handmade pasta, all using the finest ingredients.</p>
+<p style="font-size:1rem;line-height:1.8;color:#444;margin-bottom:40px;">The dessert tray rolls out like a grand finale: towering tiramisu, molten chocolate lava cakes, and cannoli so crisp and creamy you\'ll swear they were kissed by an Italian nonna. This is <em>the</em> ultimate dining experience — a bold, unapologetic celebration of life\'s finest pleasures.</p>
+<!-- VIEW MENU / WINE / EVENTS 3-col -->
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:960px;margin:0 auto;">
+<div style="text-align:center;"><a href="/menu/"><img src="https://tjsitaliancafe.com/wp-content/uploads/2017/12/viewmenu-300x300.png" alt="View Menu" style="max-width:180px;width:100%;margin:0 auto;display:block;"/></a><p style="font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#3a2011;margin-top:16px;"><a href="/menu/" style="color:#3a2011;">VIEW OUR MENU</a></p></div>
+<div style="text-align:center;"><a href="/wine/"><img src="https://tjsitaliancafe.com/wp-content/uploads/2020/02/Untitled-design-2-300x300.png" alt="View Wines" style="max-width:180px;width:100%;margin:0 auto;display:block;"/></a><p style="font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#3a2011;margin-top:16px;"><a href="/wine/" style="color:#3a2011;">VIEW OUR WINES &amp; COCKTAIL BAR</a></p></div>
+<div style="text-align:center;"><a href="/local-events/"><img src="https://tjsitaliancafe.com/wp-content/uploads/2017/12/events-300x300.png" alt="Local Events" style="max-width:180px;width:100%;margin:0 auto;display:block;"/></a><p style="font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#3a2011;margin-top:16px;"><a href="/local-events/" style="color:#3a2011;">VIEW LOCAL EVENTS</a></p></div>
+</div>
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"full","style":{"color":{"background":"#3a2011"},"spacing":{"padding":{"top":"80px","bottom":"80px"}}},"layout":{"type":"constrained","contentSize":"1100px"}} -->
+<div class="wp-block-group alignfull" style="background-color:#3a2011;padding:80px 24px;">
+<h2 style="font-family:\'Times New Roman\',Times,serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:400;color:#fff;text-align:center;margin-bottom:48px;">Our Customer Testimonials</h2>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:1050px;margin:0 auto;">
+<div style="background:rgba(255,255,255,0.06);border:1px solid rgba(214,173,138,0.2);padding:32px 24px;"><p style="color:#c9a84c;margin-bottom:12px;">&#9733;&#9733;&#9733;&#9733;&#9733;</p><p style="font-style:italic;font-size:1rem;color:rgba(255,255,255,0.9);line-height:1.7;margin-bottom:16px;">"The service was attentive and the food absolutely delicious. I really loved the huge Meatballs and the pasta was perfectly cooked. We will certainly add this lovely place to our favourites list."</p><p style="color:#d6ad8a;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;">Bigideas1983 — TripAdvisor</p></div>
+<div style="background:rgba(255,255,255,0.06);border:1px solid rgba(214,173,138,0.2);padding:32px 24px;"><p style="color:#c9a84c;margin-bottom:12px;">&#9733;&#9733;&#9733;&#9733;&#9733;</p><p style="font-style:italic;font-size:1rem;color:rgba(255,255,255,0.9);line-height:1.7;margin-bottom:16px;">"Great Food, Excellent Service!! Always a pleasure dining here. The atmosphere is wonderful and Chef TJ never disappoints. This is our go-to spot on Indian Rocks Beach!"</p><p style="color:#d6ad8a;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;">Glenn — Google Review</p></div>
+<div style="background:rgba(255,255,255,0.06);border:1px solid rgba(214,173,138,0.2);padding:32px 24px;"><p style="color:#c9a84c;margin-bottom:12px;">&#9733;&#9733;&#9733;&#9733;&#9733;</p><p style="font-style:italic;font-size:1rem;color:rgba(255,255,255,0.9);line-height:1.7;margin-bottom:16px;">"Always Great! We\'ve been coming to TJ\'s for years. It\'s the kind of place where they remember your name and your favorite table. Truly a landmark of Indian Rocks Beach."</p><p style="color:#d6ad8a;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;">Vicki — TripAdvisor</p></div>
+</div>
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"full","style":{"color":{"background":"#3e2212"},"spacing":{"padding":{"top":"60px","bottom":"60px"}}},"layout":{"type":"constrained","contentSize":"1100px"}} -->
+<div class="wp-block-group alignfull" style="background-color:#3e2212;padding:60px 24px;">
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:40px;max-width:1050px;margin:0 auto;text-align:center;">
+<div><h3 style="font-family:\'Yesteryear\',cursive;font-size:2rem;color:#d6ad8a;margin-bottom:12px;">Location</h3><p style="color:rgba(255,255,255,0.85);font-size:0.9rem;line-height:1.8;">1515 Gulf Boulevard<br/>Indian Rocks Beach, FL 33785<br/>1 mile South of Belleair Bridge<br/><a href="tel:+17275961515" style="color:#d6ad8a;">727-596-1515</a></p></div>
+<div><h3 style="font-family:\'Yesteryear\',cursive;font-size:2rem;color:#d6ad8a;margin-bottom:12px;">Hours</h3><p style="color:rgba(255,255,255,0.85);font-size:0.9rem;line-height:2;"><strong style="color:#fff;">Mon–Thu:</strong> 3pm – 10pm<br/><strong style="color:#fff;">Fri–Sun:</strong> 12pm – 10pm<br/><strong style="color:#fff;">Brunch Sat–Sun:</strong> 10am – 2pm<br/><strong style="color:#fff;">Takeout Daily:</strong> 3pm – Close</p></div>
+<div><h3 style="font-family:\'Yesteryear\',cursive;font-size:2rem;color:#d6ad8a;margin-bottom:12px;">Reservations</h3><p style="color:rgba(255,255,255,0.85);font-size:0.9rem;line-height:1.8;">Call for your next Special Celebration.<br/><a href="tel:+17275961515" style="color:#d6ad8a;font-size:1.2rem;font-weight:700;">727-596-1515</a></p></div>
+</div>
+</div>
+<!-- /wp:group -->';
+
 $pages = [
     [
         'slug'    => '',   // home
         'title'   => 'Home',
-        'template' => '', // MUST be empty — front-page.html is used via WP FSE template hierarchy, NOT as a page_template
-        'content' => '', // home page content comes from front-page.html block template
+        'template' => '', // empty = default page template; page-hero is hidden via CSS for .home
+        'content' => $home_content,
     ],
     [
         'slug'    => 'about-us',

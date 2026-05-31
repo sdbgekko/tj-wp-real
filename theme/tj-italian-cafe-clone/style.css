@@ -1050,3 +1050,41 @@ a:hover {
         text-align: center;
     }
 }
+
+/* ============================================================
+   HOME PAGE — hide page-hero cover block, full-bleed content
+   The home page's post_content has the hero + sections as alignfull blocks.
+   We hide the page.html's default page-hero and remove content padding.
+   ============================================================ */
+
+.home.page-template-default .page-hero {
+    display: none !important;
+}
+
+.home.page-template-default .content-section {
+    padding: 0 !important;
+    max-width: 100% !important;
+}
+
+.home.page-template-default .wp-block-post-content {
+    padding: 0 !important;
+    max-width: 100% !important;
+}
+
+/* Hero overlay text positioning */
+.tj-hero .wp-block-cover__inner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    gap: 8px;
+}
+
+/* 3-column grids in home sections — responsive */
+@media (max-width: 700px) {
+    .home.page-template-default .wp-block-group [style*="grid-template-columns:repeat(3,1fr)"] {
+        grid-template-columns: 1fr !important;
+    }
+}
