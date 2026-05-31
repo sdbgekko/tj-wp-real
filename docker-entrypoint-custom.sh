@@ -75,7 +75,9 @@ apache2ctl configtest 2>&1 || echo "[TJ-MPM] Config test result above"
     SETUP_DONE=$(wp option get tj_cafe_setup_complete --allow-root 2>/dev/null || echo "")
     if [ "$SETUP_DONE" != "1" ]; then
         echo "[TJ-SETUP] Running content import..."
-        wp eval-file /var/www/html/content-import-cli.php --allow-root 2>&1
+        wp eval-file /opt/tj-content-import.php --allow-root 2>&1 || \
+        wp eval-file /var/www/html/content-import-cli.php --allow-root 2>&1 || \
+        echo "[TJ-SETUP] Content import skipped (file not found — run manually at /content-import.php)"
         echo "[TJ-SETUP] Content import done."
     else
         echo "[TJ-SETUP] Content already imported. Skipping."

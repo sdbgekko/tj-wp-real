@@ -39,6 +39,8 @@ COPY ./theme/tj-italian-cafe-clone /var/www/html/wp-content/themes/tj-italian-ca
 # Copy content import script
 # ---------------------------------------------------------------
 COPY ./content-import.php /var/www/html/content-import.php
+# content-import-cli.php must be outside /var/www/html (which WP entrypoint overwrites)
+COPY ./content-import-cli.php /opt/tj-content-import.php
 
 # ---------------------------------------------------------------
 # Copy custom entrypoint (extends wordpress official entrypoint)
