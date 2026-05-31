@@ -58,30 +58,27 @@ if ($tj_theme->exists()) {
 }
 
 // ---------------------------------------------------------------
-// 1b. Clear FSE template overrides in wp_templates custom post type
-// WordPress FSE stores template overrides as custom posts with post_type='wp_template'
-// These override the theme's template files. We must clear them for front-page.html to be used.
+// 1b. Clear ALL FSE template + template_part DB overrides
+// WordPress FSE stores customized templates as wp_template/wp_template_part posts in the DB
+// with slugs like "theme-slug//template-name". These OVERRIDE theme files.
+// Delete ALL of them so the theme's file-based templates are used fresh.
 // ---------------------------------------------------------------
-$template_overrides = get_posts([
-    'post_type'      => 'wp_template',
-    'post_status'    => 'any',
-    'posts_per_page' => -1,
-    'post_name__in'  => ['front-page', 'home', 'page', 'index', 'header', 'footer'],
-]);
-foreach ($template_overrides as $tpl) {
-    wp_delete_post($tpl->ID, true); // force delete (bypass trash)
-    log_msg("Deleted FSE template override: {$tpl->post_name} (ID: {$tpl->ID})");
+global $wpdb;
+$fse_template_ids = $wpdb->get_col(
+    "SELECT ID FROM {$wpdb->posts} WHERE post_type IN ('wp_template','wp_template_part') AND post_status != 'auto-draft'"
+);
+$deleted_count = 0;
+foreach ($fse_template_ids as $tpl_id) {
+    $tpl_name = $wpdb->get_var("SELECT post_name FROM {$wpdb->posts} WHERE ID = {$tpl_id}");
+    $wpdb->delete($wpdb->posts, ['ID' => $tpl_id], ['%d']);
+    $wpdb->delete($wpdb->postmeta, ['post_id' => $tpl_id], ['%d']);
+    $deleted_count++;
+    log_msg("Deleted FSE template DB override: {$tpl_name} (ID: {$tpl_id})");
 }
-
-$template_part_overrides = get_posts([
-    'post_type'      => 'wp_template_part',
-    'post_status'    => 'any',
-    'posts_per_page' => -1,
-]);
-foreach ($template_part_overrides as $tpl) {
-    wp_delete_post($tpl->ID, true);
-    log_msg("Deleted FSE template part override: {$tpl->post_name} (ID: {$tpl->ID})");
+if ($deleted_count === 0) {
+    log_msg("No FSE template DB overrides found (theme files will be used directly).");
 }
+wp_cache_flush();
 
 // ---------------------------------------------------------------
 // 2. Site Settings
