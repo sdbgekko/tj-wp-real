@@ -1,0 +1,940 @@
+/*
+Theme Name: TJ's Italian Cafe Clone
+Theme URI: https://github.com/sdbgekko/tj-wp-real
+Author: Sherman Brown (for TJ Smith)
+Author URI: https://suncoastcareguide.com
+Description: A faithful recreation of TJ's Italian Cafe website (tjsitaliancafe.com), Indian Rocks Beach FL. Built with TJ's permission.
+Version: 1.0
+Requires at least: 6.0
+Tested up to: 6.7
+Requires PHP: 8.0
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: tj-italian-cafe
+*/
+
+/* ============================================================
+   TJ'S ITALIAN CAFE — DESIGN TOKENS
+   Live site palette extracted from tjsitaliancafe.com
+   Colors: #BC0C06 (deep red), #3a2011 / #3e2212 (dark brown),
+           #d6ad8a (warm tan), #2c2c2c (near-black), #fff
+   Fonts: 'Yesteryear' (display), 'Lato' (body),
+          'Times New Roman' (accent)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Yesteryear&family=Lato:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    /* Brand Colors */
+    --color-primary: #BC0C06;       /* TJ red */
+    --color-dark-brown: #3a2011;    /* deep mahogany */
+    --color-medium-brown: #3e2212;  /* rich brown */
+    --color-tan: #d6ad8a;           /* warm tan/gold */
+    --color-near-black: #2c2c2c;    /* text */
+    --color-charcoal: #615b53;      /* secondary text */
+    --color-white: #ffffff;
+    --color-off-white: #fdf8f3;     /* warm cream bg */
+    --color-light-tan: #f5ede0;     /* light section bg */
+    --color-gold: #c9a84c;          /* gold accent */
+
+    /* Typography */
+    --font-display: 'Yesteryear', 'Letter Gothic Std Medium', cursive;
+    --font-serif: 'Playfair Display', 'Times New Roman', Times, serif;
+    --font-body: 'Lato', sans-serif;
+
+    /* Spacing */
+    --section-pad: 80px 0;
+    --container-max: 1200px;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--color-near-black);
+    background-color: var(--color-white);
+    line-height: 1.6;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: var(--color-dark-brown);
+}
+
+/* ============================================================
+   CONTAINER
+   ============================================================ */
+
+.tj-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ============================================================
+   HEADER / NAV — dark mahogany bar with red accent
+   ============================================================ */
+
+.site-header {
+    background-color: var(--color-dark-brown);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 24px;
+    min-height: 72px;
+}
+
+.site-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.site-logo__text {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--color-white);
+    line-height: 1;
+    letter-spacing: 1px;
+}
+
+.site-logo__sub {
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    color: var(--color-tan);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    display: block;
+    margin-top: 2px;
+}
+
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.site-nav a {
+    color: var(--color-white);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 24px 16px;
+    display: block;
+    border-bottom: 3px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.site-nav a:hover,
+.site-nav a.active {
+    color: var(--color-tan);
+    border-bottom-color: var(--color-primary);
+}
+
+/* Phone number in header */
+.header-phone {
+    color: var(--color-tan);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.header-phone::before {
+    content: "📞";
+    font-size: 0.9rem;
+}
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+
+.hero {
+    position: relative;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, var(--color-dark-brown) 0%, #1a0d06 50%, var(--color-medium-brown) 100%);
+    overflow: hidden;
+}
+
+.hero__bg-image {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://tjsitaliancafe.com/wp-content/uploads/2025/01/group-of-middle-aged-friends-celebrating-in-bar-to-2024-10-19-09-36-54-utc-1.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.35;
+}
+
+.hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(58,32,17,0.85) 0%, rgba(58,32,17,0.4) 60%, transparent 100%);
+}
+
+.hero__content {
+    position: relative;
+    z-index: 2;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 80px 24px;
+}
+
+.hero__badge {
+    display: inline-block;
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    padding: 6px 16px;
+    margin-bottom: 24px;
+}
+
+.hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 6rem);
+    color: var(--color-white);
+    line-height: 1;
+    margin-bottom: 16px;
+}
+
+.hero__subtitle {
+    font-family: var(--font-serif);
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    color: var(--color-tan);
+    font-style: italic;
+    margin-bottom: 8px;
+}
+
+.hero__tagline {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.8);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 40px;
+}
+
+.hero__cta-group {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.btn {
+    display: inline-block;
+    padding: 14px 32px;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.25s;
+    border: none;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.btn-primary:hover {
+    background-color: #8f0904;
+    color: var(--color-white);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--color-white);
+    border: 2px solid var(--color-white);
+}
+
+.btn-outline:hover {
+    background: var(--color-white);
+    color: var(--color-dark-brown);
+}
+
+.btn-gold {
+    background-color: var(--color-gold);
+    color: var(--color-dark-brown);
+}
+
+.btn-gold:hover {
+    background-color: #b8963e;
+    color: var(--color-dark-brown);
+}
+
+/* ============================================================
+   HOURS STRIP (beneath hero)
+   ============================================================ */
+
+.hours-strip {
+    background-color: var(--color-primary);
+    padding: 20px 0;
+}
+
+.hours-strip__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.hours-strip__item {
+    color: var(--color-white);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.hours-strip__label {
+    display: block;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    margin-bottom: 2px;
+}
+
+/* ============================================================
+   SECTION — ABOUT / ESSENCE
+   ============================================================ */
+
+.section-essence {
+    padding: 100px 0;
+    background-color: var(--color-off-white);
+}
+
+.section-essence__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: var(--color-primary);
+    margin-bottom: 12px;
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    color: var(--color-dark-brown);
+    line-height: 1.1;
+    margin-bottom: 24px;
+}
+
+.section-body {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--color-charcoal);
+    margin-bottom: 16px;
+}
+
+.section-image-frame {
+    position: relative;
+}
+
+.section-image-frame img {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+}
+
+.section-image-frame::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    right: 12px;
+    bottom: 12px;
+    border: 2px solid var(--color-tan);
+    z-index: 0;
+}
+
+.section-image-frame img {
+    position: relative;
+    z-index: 1;
+}
+
+/* ============================================================
+   MENU / CTA BLOCKS
+   ============================================================ */
+
+.cta-blocks {
+    padding: 0;
+}
+
+.cta-blocks__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.cta-block {
+    position: relative;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+    padding: 60px 32px;
+}
+
+.cta-block__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s;
+}
+
+.cta-block:hover .cta-block__bg {
+    transform: scale(1.05);
+}
+
+.cta-block__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(58,32,17,0.72);
+    transition: background 0.3s;
+}
+
+.cta-block:hover .cta-block__overlay {
+    background: rgba(188,12,6,0.72);
+}
+
+.cta-block__content {
+    position: relative;
+    z-index: 2;
+}
+
+.cta-block__icon {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.cta-block__title {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    color: var(--color-white);
+    margin-bottom: 16px;
+    line-height: 1;
+}
+
+.cta-block__desc {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+
+.testimonials {
+    background-color: var(--color-dark-brown);
+    padding: 100px 0;
+}
+
+.testimonials__header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.testimonials__header .section-label {
+    color: var(--color-tan);
+}
+
+.testimonials__header .section-title {
+    color: var(--color-white);
+}
+
+.testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.testimonial-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(214,173,138,0.2);
+    padding: 36px 28px;
+}
+
+.testimonial-card__stars {
+    color: var(--color-gold);
+    font-size: 1rem;
+    margin-bottom: 16px;
+}
+
+.testimonial-card__text {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.testimonial-card__author {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-tan);
+}
+
+.testimonial-card__source {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 4px;
+}
+
+/* ============================================================
+   AWARDS ROW
+   ============================================================ */
+
+.awards-row {
+    background-color: var(--color-light-tan);
+    padding: 48px 0;
+}
+
+.awards-row__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.award-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.award-badge img {
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+    filter: saturate(0.8);
+    transition: filter 0.3s;
+}
+
+.award-badge:hover img {
+    filter: saturate(1);
+}
+
+/* ============================================================
+   CONTACT / INFO
+   ============================================================ */
+
+.contact-info {
+    background-color: var(--color-medium-brown);
+    padding: 80px 0;
+    color: var(--color-white);
+}
+
+.contact-info__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+}
+
+.contact-block__title {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--color-tan);
+    margin-bottom: 16px;
+}
+
+.contact-block__body {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.8);
+}
+
+.contact-block__body strong {
+    color: var(--color-white);
+}
+
+.contact-block__body a {
+    color: var(--color-tan);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.site-footer {
+    background-color: #1a0d06;
+    padding: 40px 0 20px;
+    text-align: center;
+}
+
+.site-footer__logo {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--color-white);
+    margin-bottom: 16px;
+}
+
+.site-footer__nav {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.site-footer__nav a {
+    color: var(--color-tan);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.site-footer__nav a:hover {
+    color: var(--color-white);
+}
+
+.site-footer__copy {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 1px;
+}
+
+.site-footer__social {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.site-footer__social a {
+    color: var(--color-tan);
+    font-size: 1.2rem;
+    transition: color 0.2s;
+}
+
+.site-footer__social a:hover {
+    color: var(--color-white);
+}
+
+/* ============================================================
+   PAGE HERO (interior pages)
+   ============================================================ */
+
+.page-hero {
+    background: linear-gradient(to right, var(--color-dark-brown), var(--color-medium-brown));
+    padding: 80px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-hero__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.25;
+}
+
+.page-hero__title {
+    position: relative;
+    z-index: 2;
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    color: var(--color-white);
+    line-height: 1;
+}
+
+.page-hero__sub {
+    position: relative;
+    z-index: 2;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--color-tan);
+    margin-top: 12px;
+}
+
+/* ============================================================
+   CONTENT AREA
+   ============================================================ */
+
+.content-section {
+    padding: 80px 0;
+}
+
+.content-section.bg-cream {
+    background: var(--color-off-white);
+}
+
+.content-section.bg-dark {
+    background: var(--color-dark-brown);
+    color: var(--color-white);
+}
+
+.content-narrow {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.content-section h2 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--color-dark-brown);
+    margin-bottom: 24px;
+}
+
+.content-section.bg-dark h2 {
+    color: var(--color-tan);
+}
+
+.content-section p {
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 16px;
+    color: var(--color-charcoal);
+}
+
+.content-section.bg-dark p {
+    color: rgba(255,255,255,0.85);
+}
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 4px;
+    max-width: var(--container-max);
+    margin: 0 auto;
+}
+
+.gallery-item {
+    overflow: hidden;
+    aspect-ratio: 1;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.08);
+}
+
+/* ============================================================
+   PDF EMBED
+   ============================================================ */
+
+.pdf-embed-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    text-align: center;
+}
+
+.pdf-embed-wrapper iframe {
+    width: 100%;
+    height: 900px;
+    border: 1px solid var(--color-tan);
+}
+
+.pdf-download-link {
+    display: inline-block;
+    margin-top: 16px;
+    color: var(--color-primary);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+}
+
+/* ============================================================
+   CONTACT FORM SECTION
+   ============================================================ */
+
+.contact-form-section {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.tj-form-field {
+    margin-bottom: 20px;
+}
+
+.tj-form-field label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-charcoal);
+    margin-bottom: 8px;
+}
+
+.tj-form-field input,
+.tj-form-field textarea,
+.tj-form-field select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--color-tan);
+    background: var(--color-white);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-near-black);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.tj-form-field input:focus,
+.tj-form-field textarea:focus {
+    border-color: var(--color-primary);
+}
+
+.tj-form-field textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* ============================================================
+   MAP SECTION
+   ============================================================ */
+
+.map-embed {
+    width: 100%;
+    height: 450px;
+    border: none;
+    display: block;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 900px) {
+    .section-essence__inner {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-blocks__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-block {
+        min-height: 300px;
+    }
+
+    .contact-info__inner {
+        grid-template-columns: 1fr;
+    }
+
+    .site-nav {
+        display: none;
+    }
+
+    .site-header__inner {
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 600px) {
+    .hours-strip__inner {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .hero__cta-group {
+        flex-direction: column;
+    }
+
+    .hero__cta-group .btn {
+        text-align: center;
+    }
+}
