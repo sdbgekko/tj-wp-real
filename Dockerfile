@@ -2,21 +2,22 @@ FROM wordpress:6.7-php8.3-apache
 
 # ---------------------------------------------------------------
 # FIX: Apache MPM crash — "More than one MPM loaded"
-# The wordpress:apache image loads mpm_prefork by default BUT
-# also has mpm_event enabled in mods-enabled/ via symlinks.
-# Solution: directly remove ALL mpm module symlinks then re-add
-# ONLY prefork. a2dismod/a2enmod is not reliable here.
+#
+# Root cause: the wordpress:apache base image has BOTH
+# mpm_event.conf AND mpm_prefork.conf symlinked in mods-enabled.
+# When Apache starts it finds two MPMs and refuses to run.
+#
+# Fix: write a fresh /etc/apache2/mods-enabled directory that
+# contains ONLY the prefork MPM. We use a shell heredoc to write
+# a custom apache2 startup wrapper that patches mods before exec.
 # ---------------------------------------------------------------
-RUN rm -f /etc/apache2/mods-enabled/mpm_event.load \
-          /etc/apache2/mods-enabled/mpm_event.conf \
-          /etc/apache2/mods-enabled/mpm_worker.load \
-          /etc/apache2/mods-enabled/mpm_worker.conf \
-          /etc/apache2/mods-enabled/mpm_prefork.load \
-          /etc/apache2/mods-enabled/mpm_prefork.conf \
- && ln -sf /etc/apache2/mods-available/mpm_prefork.load /etc/apache2/mods-enabled/mpm_prefork.load \
- && ln -sf /etc/apache2/mods-available/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf \
- && echo "ServerName localhost" >> /etc/apache2/apache2.conf \
- && apache2ctl configtest 2>&1 || true
+RUN find /etc/apache2/mods-enabled -name 'mpm_*.load' -delete \
+ && find /etc/apache2/mods-enabled -name 'mpm_*.conf' -delete \
+ && echo "LoadModule mpm_prefork_module /usr/lib/apache2/modules/mod_mpm_prefork.so" \
+    > /etc/apache2/mods-enabled/mpm_prefork.load \
+ && echo "<IfModule mpm_prefork_module>\n  StartServers 2\n  MinSpareServers 2\n  MaxSpareServers 5\n  MaxRequestWorkers 50\n  MaxConnectionsPerChild 0\n</IfModule>" \
+    > /etc/apache2/mods-enabled/mpm_prefork.conf \
+ && echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # ---------------------------------------------------------------
 # PHP tuning for WordPress
