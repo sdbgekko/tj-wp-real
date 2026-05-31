@@ -1,7 +1,7 @@
 FROM wordpress:6.7-php8.3-apache
 
 # Cache-bust argument — increment to force Railway to rebuild all layers
-ARG CACHE_BUST=2026-05-31-v14
+ARG CACHE_BUST=2026-05-31-v21
 
 # ---------------------------------------------------------------
 # FIX: Apache MPM crash — "More than one MPM loaded"
@@ -39,6 +39,7 @@ COPY ./theme/tj-italian-cafe-clone /var/www/html/wp-content/themes/tj-italian-ca
 # Copy content import script
 # ---------------------------------------------------------------
 COPY ./content-import.php /var/www/html/content-import.php
+COPY ./fix-home.php /var/www/html/fix-home.php
 # content-import-cli.php must be outside /var/www/html (which WP entrypoint overwrites)
 COPY ./content-import-cli.php /opt/tj-content-import.php
 
